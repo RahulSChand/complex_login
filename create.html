@@ -8,29 +8,35 @@
         body {
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;  /* Align items to the top */
             height: 100vh;
             margin: 0;
+            font-family: Arial, sans-serif;
         }
         div {
             text-align: center;
             display: flex;
             flex-direction: column;  
             width: 300px;
+            margin-top: 20px;  /* Ensuring some space at the top */
+        }
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
         }
         .input-group {
             display: flex;  
             margin: 15px 0;
-            justify-content: center;  
+            justify-content: center;
         }
         label {
             font-size: 20px;
-            margin-right: 10px;  
+            margin-right: 10px;
         }
         input {
             font-size: 20px;
             padding: 10px;
-            width: 200px;  
+            width: 200px;
         }
         .error-message {
             color: red;
@@ -77,37 +83,33 @@
             const password = document.getElementById('password').value;
             const errorMessage = document.getElementById('error-message');
 
-            // Parse the date manually (expecting MM/DD/YYYY format)
             const dobParts = dob.split('/');
             if (dobParts.length !== 3 || isNaN(dobParts[0]) || isNaN(dobParts[1]) || isNaN(dobParts[2])) {
                 errorMessage.textContent = 'Please enter a valid date in MM/DD/YYYY format.';
                 return;
             }
 
-            const birthDate = new Date(`${dobParts[2]}-${dobParts[0]}-${dobParts[1]}`);  // Convert to YYYY-MM-DD
+            const birthDate = new Date(`${dobParts[2]}-${dobParts[0]}-${dobParts[1]}`);
             const age = new Date().getFullYear() - birthDate.getFullYear();
 
-            // Check if the person is above 40
             if (age < 40) {
                 errorMessage.textContent = 'Enter DOB again. Age should be 40+.';
                 return;
             } else {
-                errorMessage.textContent = '';  // Clear any error message
+                errorMessage.textContent = '';
             }
 
-            // Check if the customerID is a number
             if (isNaN(customerID)) {
                 errorMessage.textContent = 'Customer ID must be a number.';
                 return;
             } else {
-                errorMessage.textContent = '';  // Clear any error message
+                errorMessage.textContent = '';
             }
 
-            // Store password and customerID in localStorage
             localStorage.setItem('password', password);
             localStorage.setItem('customerID', customerID);
 
-            window.location.href = 'login.html';  // Navigate to the next page
+            window.location.href = 'login.html';
         }
     </script>
 </body>
