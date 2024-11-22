@@ -8,7 +8,7 @@
         body {
             display: flex;
             justify-content: center;
-            align-items: flex-start;  /* Align items to the top */
+            align-items: flex-start;
             height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
@@ -18,7 +18,7 @@
             display: flex;
             flex-direction: column;  
             width: 300px;
-            margin-top: 20px;  /* Ensuring some space at the top */
+            margin-top: 20px;
         }
         h1 {
             font-size: 20px;
@@ -71,49 +71,32 @@
         </div>
 
         <button id="createAccountButton" onclick="login()">Create Account</button>
-        <button onclick="window.location.href='index.html';">Back to Homepage</button>
+        <button id="goBackToHomePageButton" onclick="window.location.href='index.html';">Back to Homepage</button>
 
         <div id="error-message" class="error-message"></div>
     </div>
 
+    <script src="validation.js"></script>
+
+    
     <script>
         function login() {
             const dob = document.getElementById('dob').value;
             const customerID = document.getElementById('customerID').value;
             const password = document.getElementById('password').value;
             const errorMessage = document.getElementById('error-message');
-    
-            const dobParts = dob.split('/');
-            if (dobParts.length !== 3 || isNaN(dobParts[0]) || isNaN(dobParts[1]) || isNaN(dobParts[2])) {
-                errorMessage.textContent = 'Please enter a valid date in MM/DD/YYYY format.';
+
+            // Call the external validation function
+            const error = validateForm(dob, customerID);
+
+            if (error) {
+                errorMessage.textContent = error;
                 return;
             }
-    
-            const birthDate = new Date(`${dobParts[2]}-${dobParts[0]}-${dobParts[1]}`);
-            const age = new Date().getFullYear() - birthDate.getFullYear();
-    
-            if (age < 70) {
-                errorMessage.textContent = 'Enter DOB again. Age should be 40+.';
-                return;
-            } else {
-                errorMessage.textContent = '';
-            }
-    
-            if (isNaN(customerID)) {
-                errorMessage.textContent = 'Customer ID must be a number.';
-                return;
-            }
-    
-            if (customerID % 7 !== 0) {  // Check if the customerID is not even
-                errorMessage.textContent = 'There was some error pls check faq on the homepage';
-                return;
-            } else {
-                errorMessage.textContent = '';
-            }
-    
+
+            errorMessage.textContent = '';
             localStorage.setItem('password', password);
             localStorage.setItem('customerID', customerID);
-    
             window.location.href = 'login.html';
         }
     </script>
