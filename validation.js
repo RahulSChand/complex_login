@@ -30,3 +30,28 @@ function validateForm(dob, customerID) {
 
     return '';  // Empty string means no error
 }
+
+function checkAmountForeignNotEmpty() {
+    const amountForeign = document.getElementById('amountIDForeign').value;
+    if (amountForeign.trim() === "") {
+        return false;
+    }
+    return true;
+}
+
+// Check if the ratio of amount/amountForeign is approximately 48
+function checkAmountRatio() {
+    const amount = parseFloat(document.getElementById('amountID').value);
+    const amountForeign = parseFloat(document.getElementById('amountIDForeign').value);
+    
+    if (isNaN(amount) || isNaN(amountForeign)) {
+        return false;
+    }
+
+    const ratio = amount / amountForeign;
+    if (Math.abs(ratio - 50) <= 1.0) {  // Allow a small margin of error
+        return true;
+    }
+
+    return false;
+}
