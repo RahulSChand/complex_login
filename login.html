@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        div {
+            text-align: center;
+            display: flex;
+            flex-direction: column;  
+        }
+        .input-group {
+            display: flex;  
+            margin: 15px 0;
+            justify-content: center;  
+        }
+        label {
+            font-size: 20px;
+            margin-right: 10px;  
+        }
+        input {
+            font-size: 20px;
+            padding: 10px;
+            width: 200px;  
+        }
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .button-gap {
+            margin-top: 20px; /* Gap between the buttons */
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>LOGIN TO YOUR ACCOUNT HERE</h1>
+
+        <div class="input-group">
+            <label for="userID">UserID: </label>
+            <input type="text" id="userID" name="userID">
+        </div>
+        <div class="input-group">
+            <label for="password">Password: </label>
+            <input type="password" id="password" name="password">
+        </div>
+
+        <button id="loginButton" onclick="login()">Login</button>
+        <div class="button-gap">
+            <button id="backButton" onclick="window.location.href='index.html'">Back to Homepage</button>
+        </div>
+        
+        <div id="error-message" class="error-message"></div>
+    </div>
+
+    <script>
+        // Simulating a stored username and password in localStorage for this example
+        // You can set these values manually in localStorage before testing.
+        // localStorage.setItem('userID', 'testUser');
+        // localStorage.setItem('password', 'testPass');
+
+        function login() {
+            const userID = document.getElementById('userID').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+
+            // Get stored userID and password from localStorage
+            const storedUserID = localStorage.getItem('customerID');
+            const storedPassword = localStorage.getItem('password');
+
+            // Check if the entered username and password match the stored ones
+            if (userID === storedUserID && password === storedPassword) {
+                // Redirect to account.html on successful login
+                window.location.href = 'transaction.html';
+            } else {
+                // Display error message if credentials don't match
+                errorMessage.textContent = 'Username and password are incorrect.';
+            }
+        }
+    </script>
+</body>
+</html>

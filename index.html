@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        div {
+            text-align: center;
+            display: flex;
+            flex-direction: column;  /* Stack buttons vertically */
+        }
+        button {
+            font-size: 20px;  /* Bigger text */
+            padding: 15px 30px;  /* Bigger buttons */
+            margin: 10px;  /* Space between buttons */
+        }
+        .small-text {
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+        .faq-link {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div>
+        <!-- Added welcome message -->
+        <div class="small-text">
+            Welcome to the Bank101 website! We offer a range of services to manage your finances. Explore our options below to get started.
+        </div>
+
+        <!-- Buttons for navigation -->
+        <button id="buttonId" onclick="window.location.href='login.html'">Login To Account</button>
+        <button onclick="window.location.href='create.html'">Create Account</button>
+        <button onclick="window.location.href='out.html'">See Exchange Rates</button>
+
+        <!-- FAQ link -->
+        <div class="faq-link">
+            <a href="faq.html">FAQ</a>
+        </div>
+    </div>
+
+</body>
+</html>

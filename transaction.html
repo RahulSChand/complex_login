@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        div {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+        }
+        .input-group {
+            display: flex;  
+            margin: 15px 0;
+            justify-content: center;  
+        }
+        label {
+            font-size: 20px;
+            margin-right: 10px;  
+        }
+        input {
+            font-size: 20px;
+            padding: 10px;
+            width: 200px;  
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+        .balance {
+            margin-top: 20px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="input-group">
+            <label for="myID">Enter Your customer ID: </label>
+            <input type="text" id="myID" name="myID">
+        </div>
+        <div class="input-group">
+            <label for="otherID">Enter customer ID of account you are sending to: </label>
+            <input type="text" id="otherID" name="otherID">
+        </div>
+        <div class="input-group">
+            <label for="amountID">Enter Amount To Send To: </label>
+            <input type="text" id="amountID" name="amountID">
+        </div>
+
+        <div class="balance" id="balance">Your balance is: $1000</div>
+
+        <button id="submitTransactionButton" onclick="validateTransaction()">Send Money</button>
+        <button onclick="goHome()">Back to Homepage</button>
+        
+        <div id="error" class="error"></div>
+    </div>
+
+    <script>
+        function validateTransaction() {
+            const myID = document.getElementById('myID').value;
+            const storedID = localStorage.getItem('customerID');
+            const otherID = document.getElementById('otherID').value;
+            const enteredAmount = parseFloat(document.getElementById('amountID').value);
+            const balance = 1000;  // Hardcoded balance
+            
+            // Check if userID matches
+            if (myID !== storedID) {
+                document.getElementById('error').innerText = "UserID doesn't match.";
+                return;
+            } else {
+                document.getElementById('error').innerText = '';  // Clear error message
+            }
+            
+            // Check if amount is valid
+            if (isNaN(enteredAmount) || enteredAmount <= 0) {
+                document.getElementById('error').innerText = "Please enter a valid amount.";
+                return;
+            }
+
+            // Check if balance is sufficient
+            if (enteredAmount > balance) {
+                document.getElementById('error').innerText = "Insufficient balance.";
+                return;
+            }
+
+            // If all checks pass, redirect to success page
+            window.location.href = 'success.html';  
+        }
+
+        function goHome() {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

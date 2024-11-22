@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        div {
+            text-align: center;
+            display: flex;
+            flex-direction: column;  
+            width: 300px;
+        }
+        .input-group {
+            display: flex;  
+            margin: 15px 0;
+            justify-content: center;  
+        }
+        label {
+            font-size: 20px;
+            margin-right: 10px;  
+        }
+        input {
+            font-size: 20px;
+            padding: 10px;
+            width: 200px;  
+        }
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>CREATE ACCOUNT HERE</h1>
+        <div class="input-group">
+            <label for="username">Name: </label>
+            <input type="text" id="username" name="username">
+        </div>
+        <div class="input-group">
+            <label for="dob">Date of Birth: </label>
+            <input type="text" id="dob" name="dob" placeholder="MM/DD/YYYY">
+        </div>
+        <div class="input-group">
+            <label for="customerID">Customer ID: </label>
+            <input type="text" id="customerID" name="customerID">
+        </div>
+        <div class="input-group">
+            <label for="password">Password: </label>
+            <input type="password" id="password" name="password">
+        </div>
+
+        <button id="createAccountButton" onclick="login()">Create Account</button>
+        <button onclick="window.location.href='index.html';">Back to Homepage</button>
+
+        <div id="error-message" class="error-message"></div>
+    </div>
+
+    <script>
+        function login() {
+            const dob = document.getElementById('dob').value;
+            const customerID = document.getElementById('customerID').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+
+            // Parse the date manually (expecting MM/DD/YYYY format)
+            const dobParts = dob.split('/');
+            if (dobParts.length !== 3 || isNaN(dobParts[0]) || isNaN(dobParts[1]) || isNaN(dobParts[2])) {
+                errorMessage.textContent = 'Please enter a valid date in MM/DD/YYYY format.';
+                return;
+            }
+
+            const birthDate = new Date(`${dobParts[2]}-${dobParts[0]}-${dobParts[1]}`);  // Convert to YYYY-MM-DD
+            const age = new Date().getFullYear() - birthDate.getFullYear();
+
+            // Check if the person is above 40
+            if (age < 40) {
+                errorMessage.textContent = 'Enter DOB again. Age should be 40+.';
+                return;
+            } else {
+                errorMessage.textContent = '';  // Clear any error message
+            }
+
+            // Check if the customerID is a number
+            if (isNaN(customerID)) {
+                errorMessage.textContent = 'Customer ID must be a number.';
+                return;
+            } else {
+                errorMessage.textContent = '';  // Clear any error message
+            }
+
+            // Store password and customerID in localStorage
+            localStorage.setItem('password', password);
+            localStorage.setItem('customerID', customerID);
+
+            window.location.href = 'login.html';  // Navigate to the next page
+        }
+    </script>
+</body>
+</html>
